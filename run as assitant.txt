@@ -1,0 +1,26 @@
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.10.15              # https://pyreadiness.org/3.10
+  - pip=24.3.1                  # https://pip.pypa.io/en/stable/news
+  - pip:
+      - rpaframework==28.6.3    # https://rpaframework.org/releasenotes.html
+      - robocorp==2.1.2         # https://pypi.org/project/robocorp
+      - robocorp-browser==2.3.3 # https://pypi.org/project/robocorp-browser
+      - rpaframework-assistant==3.0.6
+
+
+from RPA.Assistant import Assistant
+
+def user_input_task():
+    assistant = Assistant()
+    assistant.add_heading("Input from user")
+    assistant.add_text_input("text_input", placeholder="Please enter URL")
+    assistant.add_submit_buttons("Submit", default="Submit")
+    result = assistant.run_dialog()
+    url = result.text_input
+    open_robot_order_website(url)
+
+def open_robot_order_website(url):
+    browser.goto(url)
